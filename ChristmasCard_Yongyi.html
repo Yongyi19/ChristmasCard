@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Christmas Card</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Crimson+Text:ital@0;1&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, 
+                #0f5132 0%, 
+                #146B3A 25%, 
+                #8B0D32 75%, 
+                #a51c30 100%
+            );
+            background-size: 200% 200%;
+            overflow: hidden;
+            animation: gradientShift 15s ease infinite;
+            padding: 20px;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .card {
+            position: relative;
+            width: 800px;
+            min-height: 600px;
+            background: #fff;
+            border-radius: 10px;
+            padding: 80px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        /* 圣诞边框装饰 */
+        .christmas-border {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('1.png');
+            background-size: 150% 100%;
+            background-repeat: no-repeat;
+            pointer-events: none;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            padding: 40px;
+        }
+
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4em;
+            color: #8b0000;
+            text-align: center;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .recipient {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2em;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .message {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.3em;
+            line-height: 1.8;
+            color: #2c3e50;
+            text-align: justify;
+            margin-bottom: 40px;
+        }
+
+        .signature {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2em;
+            color: #8b0000;
+            text-align: right;
+            margin-top: 40px;
+        }
+
+        .snowflake {
+            position: fixed;
+            color: white;
+            font-size: 1.5em;
+            user-select: none;
+            z-index: 1;
+            animation: fall linear infinite;
+        }
+
+        .video-container {
+            position: absolute;
+            top: 120px;
+            right: 100px;
+            width: 100px;  
+            height: 120px; 
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            background: #000;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+        
+        .video-container:hover {
+            width: 400px;
+            height: 710px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+        
+        
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            -webkit-object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .video-fallback {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            font-size: 12px;
+            padding: 10px;
+            display: none;
+        }
+
+        video:not([playable]) + .video-fallback {
+            display: block;
+        }
+
+        .video-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .video-container:hover .video-controls {
+            opacity: 1;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <div class="christmas-border"></div>
+        <div class="content">
+            <h1>Merry Christmas</h1>
+            <p class="recipient">Beloved Yongyi,</p>
+            <div class="video-container">
+                <video controls playsinline webkit-playsinline x5-video-player-type="h5" x5-video-player-fullscreen="true" preload="metadata">
+                    <source src="2.mov" type="video/quicktime">
+                    <source src="2.mp4" type="video/mp4">
+                </video>
+            </div>
+            <p class="message">
+                On this blessed Christmas day, may thy dreams take flight on wings of wonder. May the coming year unfold before thee like pages of thy favourite tales, filled with enchanting possibilities and delightful surprises.
+            </p>
+            <p class="message">
+                May thy heart find its true calling and thy path be illuminated with clarity. 
+            </p>
+            <p class="signature">
+                Warmest yuletide greetings,<br>
+                Cheng Junhao<br><br><br>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.className = 'snowflake';
+            snowflake.innerHTML = '❄';
+            snowflake.style.left = Math.random() * 100 + 'vw';
+            snowflake.style.opacity = Math.random();
+            snowflake.style.animation = `fall ${Math.random() * 3 + 2}s linear infinite`;
+
+            document.body.appendChild(snowflake);
+
+            setTimeout(() => {
+                snowflake.remove();
+            }, 5000);
+        }
+
+        setInterval(createSnowflake, 300);
+    </script>
+</body>
+</html>
